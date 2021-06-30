@@ -136,6 +136,11 @@ function render(h) {
     grid.classList.add("grid");
     grid.setAttribute("data-wrap-cols", "true");
     app.id = "app";
+    var button = document.createElement('button');
+    button.id = 'fullscreen';
+    button.setAttribute('onclick','openFullscreen()');
+    button.innerHTML = 'FullScreen';
+    grid.appendChild(button);
     app.appendChild(grid);
     document.body.appendChild(app);
     var i, j, k=0;
@@ -185,7 +190,16 @@ window.addEventListener("orientationchange", function (event) {
         render(2);
     }
 });
-
+function openFullscreen() {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
+      document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { /* IE11 */
+      document.documentElement.msRequestFullscreen();
+    }
+    document.getElementById('fullscreen').style.display = 'none';
+  }
 window.addEventListener("load",  function afterload(){
     var contents = document.getElementsByClassName('content');
     var contents1 = document.getElementsByClassName('content1');

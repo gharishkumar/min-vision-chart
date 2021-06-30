@@ -190,7 +190,15 @@ body {
     }
   }
   
-
+#fullscreen {
+    position: absolute;
+    transform: translate(0, -50vh) translate(0,25px);
+    margin: 5px;
+    border-radius: 10%;
+    border-style: none;
+    cursor: pointer;
+    font-size: large;
+}
 #back {
     position: absolute;
     transform: translate(-50vw, -50vh) translate(25px,25px);

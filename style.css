@@ -26,14 +26,7 @@ body {
     margin: 0;
     overflow: hidden;
 }
-#app {
-    -webkit-animation-name: move-left;
-  animation-name: move-left;
-  -webkit-animation-duration: .4s;
-  animation-duration: .4s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both
-}
+
 .grid {
     width: 100vw;
     min-height: 100vh;
@@ -72,12 +65,6 @@ body {
     height: 100vh;
     display: none;
     place-items: center;
-    -webkit-animation-name: move-right;
-    animation-name: move-right;
-    -webkit-animation-duration: .4s;
-    animation-duration: .4s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both
 }
 
 #chart .row {
@@ -154,6 +141,25 @@ body {
         width: 25vh;
         height: 25vh;
         font-size: 5vh;
+    }
+}
+
+@media (min-width:1281px) {
+    #app {
+        -webkit-animation-name: move-left;
+      animation-name: move-left;
+      -webkit-animation-duration: .4s;
+      animation-duration: .4s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both
+    }
+    #chart {
+        -webkit-animation-name: move-right;
+        animation-name: move-right;
+        -webkit-animation-duration: .4s;
+        animation-duration: .4s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both
     }
 }
 @keyframes move-left {

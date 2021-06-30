@@ -1,4 +1,3 @@
-
 var flag = true, redgreen = false;
 var randLetter, randNumber;
 function generateRandomLetter() {
@@ -136,11 +135,6 @@ function render(h) {
     grid.classList.add("grid");
     grid.setAttribute("data-wrap-cols", "true");
     app.id = "app";
-    var button = document.createElement('button');
-    button.id = 'fullscreen';
-    button.setAttribute('onclick','openFullscreen()');
-    button.innerHTML = 'FullScreen';
-    grid.appendChild(button);
     app.appendChild(grid);
     document.body.appendChild(app);
     var i, j, k=0;
@@ -151,6 +145,12 @@ function render(h) {
         row.classList.add("row");
         grid.appendChild(row);
     }
+    var button = document.createElement('button');
+    button.id = 'fullscreen';
+    button.setAttribute("tabindex", "-1");
+    button.setAttribute('onclick','openFullscreen()');
+    button.innerHTML = 'FullScreen';
+    grid.appendChild(button);
     for (i = 0; i < ((h == 3) ? 3 : 2); i++) { //((h == 3) ? 2 : 3) => if portrait 2 columns, if landscape 3 columns
         for (j = 0; j < ((h == 3) ? 2 : 3); j++) { //((h == 3) ? 2 : 3) => if portrait 3 rows, if landscape 2 rows
             var gridcell = document.createElement("div");
@@ -168,8 +168,11 @@ function render(h) {
     setTimeout(setFocus, 300);
     var chart = document.createElement('div');
     chart.id = 'chart';
-    chart.innerHTML = '<button id="back" onclick="back()" style="display: block;">⬅</button><div class="row"><div class="left-num">6/60</div><div class="content" style="font-size: 80px;"><div>E</div></div><div class="content1" style="font-size: 80px;"><div>E</div></div><div class="right-num">6/60</div></div><div class="row"><div class="left-num">6/36</div><div class="content" style="font-size: 70px;"><div>F</div><div>P</div></div><div class="content1" style="font-size: 70px;"><div>F</div><div>P</div></div><div class="right-num">6/36</div></div><div class="row"><div class="left-num">6/24</div><div class="content" style="font-size: 60px;"><div>T</div><div>O</div><div>Z</div></div><div class="content1" style="font-size: 60px;"><div>T</div><div>O</div><div>Z</div></div><div class="right-num">6/24</div></div><div class="row"><div class="left-num">6/18</div><div class="content" style="font-size: 50px;"><div>L</div><div>P</div><div>E</div><div>D</div></div><div class="content1" style="font-size: 50px;"><div>L</div><div>P</div><div>E</div><div>D</div></div><div class="right-num">6/18</div></div><div class="row"><div class="left-num">6/12</div><div class="content" style="font-size: 40px;"><div>P</div><div>E</div><div>C</div><div>F</div><div>D</div></div><div class="content1" style="font-size: 40px;"><div>P</div><div>E</div><div>C</div><div>F</div><div>D</div></div><div class="right-num">6/12</div></div><div class="row"><div class="left-num">6/9</div><div class="content" style="font-size: 30px;"><div>E</div><div>D</div><div>F</div><div>C</div><div>Z</div><div>P</div></div><div class="content1" style="font-size: 30px;"><div>E</div><div>D</div><div>F</div><div>C</div><div>Z</div><div>P</div></div><div class="right-num">6/9</div></div><div class="row"><div class="left-num">6/6</div><div class="content" style="font-size: 20px;"><div>F</div><div>E</div><div>L</div><div>O</div><div>P</div><div>Z</div><div>D</div></div><div class="content1" style="font-size: 20px;"><div>F</div><div>E</div><div>L</div><div>O</div><div>P</div><div>Z</div><div>D</div></div><div class="right-num">6/6</div></div>'
+    chart.innerHTML = '<button id="back" onclick="back()">⬅</button><div class="row"><div class="left-num">6/60</div><div class="content" style="font-size: 80px;"><div>E</div></div><div class="content1" style="font-size: 80px;"><div>E</div></div><div class="right-num">6/60</div></div><div class="row"><div class="left-num">6/36</div><div class="content" style="font-size: 70px;"><div>F</div><div>P</div></div><div class="content1" style="font-size: 70px;"><div>F</div><div>P</div></div><div class="right-num">6/36</div></div><div class="row"><div class="left-num">6/24</div><div class="content" style="font-size: 60px;"><div>T</div><div>O</div><div>Z</div></div><div class="content1" style="font-size: 60px;"><div>T</div><div>O</div><div>Z</div></div><div class="right-num">6/24</div></div><div class="row"><div class="left-num">6/18</div><div class="content" style="font-size: 50px;"><div>L</div><div>P</div><div>E</div><div>D</div></div><div class="content1" style="font-size: 50px;"><div>L</div><div>P</div><div>E</div><div>D</div></div><div class="right-num">6/18</div></div><div class="row"><div class="left-num">6/12</div><div class="content" style="font-size: 40px;"><div>P</div><div>E</div><div>C</div><div>F</div><div>D</div></div><div class="content1" style="font-size: 40px;"><div>P</div><div>E</div><div>C</div><div>F</div><div>D</div></div><div class="right-num">6/12</div></div><div class="row"><div class="left-num">6/9</div><div class="content" style="font-size: 30px;"><div>E</div><div>D</div><div>F</div><div>C</div><div>Z</div><div>P</div></div><div class="content1" style="font-size: 30px;"><div>E</div><div>D</div><div>F</div><div>C</div><div>Z</div><div>P</div></div><div class="right-num">6/9</div></div><div class="row"><div class="left-num">6/6</div><div class="content" style="font-size: 20px;"><div>F</div><div>E</div><div>L</div><div>O</div><div>P</div><div>Z</div><div>D</div></div><div class="content1" style="font-size: 20px;"><div>F</div><div>E</div><div>L</div><div>O</div><div>P</div><div>Z</div><div>D</div></div><div class="right-num">6/6</div></div>'
     document.body.appendChild(chart);
+    if(1 >= window.outerHeight - window.innerHeight) {
+        button.style.display = 'none';
+    }
 }
 if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
     render(2);
@@ -198,7 +201,6 @@ function openFullscreen() {
     } else if (document.documentElement.msRequestFullscreen) { /* IE11 */
       document.documentElement.msRequestFullscreen();
     }
-    document.getElementById('fullscreen').style.display = 'none';
   }
 window.addEventListener("load",  function afterload(){
     var contents = document.getElementsByClassName('content');

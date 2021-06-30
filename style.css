@@ -161,6 +161,9 @@ body {
         -webkit-animation-fill-mode: both;
         animation-fill-mode: both
     }
+    #back {
+        transform: translate(-50vw, -50vh) translate(25px,25px);
+    }
 }
 @keyframes move-left {
     0% {
@@ -192,7 +195,7 @@ body {
   
 #fullscreen {
     position: absolute;
-    transform: translate(0, -50vh) translate(0,25px);
+    transform: translate(100vw, -50vh) translate(-110px,25px);
     margin: 5px;
     border-radius: 10%;
     border-style: none;
@@ -201,7 +204,7 @@ body {
 }
 #back {
     position: absolute;
-    transform: translate(-50vw, -50vh) translate(25px,25px);
+    /* transform: translate(-50vw, -50vh) translate(25px,25px); */
     margin: 5px;
     border-radius: 20%;
     display: none;

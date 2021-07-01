@@ -53,8 +53,7 @@ body {
     box-shadow: rgba(255, 255, 255, 0.15) 1.95px 1.95px 2.6px;
 }
 
-[role = "gridcell"]:focus,
-[role = "gridcell"] *:focus {
+.gridcell:focus, .gridcell *:focus {
 	/* outline: DodgerBlue;  */
     outline: #ffffff00;
     outline-style: solid;
@@ -70,10 +69,7 @@ body {
 #chart .row {
     width: 100vw;
 }
-
-.row,
-.row [tabindex] {
-    /* background-color: DodgerBlue; */
+.row {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -129,7 +125,21 @@ body {
         /* border: 2px solid tomato; */
         width: 25vw;
         height: 25vw;
-        font-size: 5vw;
+        font-size: 14vw;
+    }
+    .btn-name {
+        font-size: 3vw;
+    }
+    .btn-symbol-box {
+        font-size: 3.2vw;
+        width: 12vw;
+        height: 14vw;
+    }
+    .ped {
+        font-size: 8vw;
+    }
+    button {
+        padding: 2vw;
     }
 }
 
@@ -137,10 +147,24 @@ body {
 @media screen and (orientation:landscape) {
     /* Landscape styles */
     .gridcell button {
-        /* border: 2px solid DodgerBlue; */
+        /* border: 2px solid tomato; */
         width: 25vh;
         height: 25vh;
-        font-size: 5vh;
+        font-size: 14vh;
+    }
+    .btn-name {
+        font-size: 3vh;
+    }
+    .btn-symbol-box {
+        font-size: 3.2vh;
+        width: 12vh;
+        height: 14vh;
+    }
+    .ped {
+        font-size: 8vh;
+    }
+    button {
+        padding: 2vh;
     }
 }
 
@@ -164,6 +188,7 @@ body {
     #back {
         transform: translate(-50vw, -50vh) translate(25px,25px);
     }
+    
 }
 @keyframes move-left {
     0% {
@@ -195,9 +220,8 @@ body {
   
 #fullscreen {
     position: absolute;
-    transform: translate(100vw, -50vh) translate(-110px,25px);
-    margin: 5px;
-    border-radius: 10%;
+    transform: translate(100vw, -50vh) translate(-115px,25px);
+    border-radius: 5%;
     border-style: none;
     cursor: pointer;
     font-size: large;
@@ -211,4 +235,26 @@ body {
     border-style: none;
     cursor: pointer;
     font-size: xx-large;
+}
+button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+.btn-symbol {
+    font-family: Eyechart_Lea;
+}
+
+.btn-symbol-box {
+    border-style: solid;
+    border-width: 1px;
+    display: grid;
+    place-items: center;
+}
+
+.red-green {
+    background: linear-gradient(to right,rgb(255, 0,0) 50%, rgb(0,255,0) 50%);
+    display: grid;
+    place-content: center;
 }

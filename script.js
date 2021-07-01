@@ -129,48 +129,29 @@ function setFocus () {
 }
 function render(h) {
     document.body.innerHTML ="";
+    document.body.style.background = 'linear-gradient(135deg, rgb(250, 170, 148), rgba(255,0,0,0) 60%),linear-gradient(45deg, rgb(214, 120, 151), rgba(0,0,255,0) 60%),linear-gradient(225deg, rgb(108, 184, 219), rgba(0,255,0,0) 60%),linear-gradient(315deg, rgb(150, 98, 199) , rgba(0,255,0,0) 60%)';
     var app = document.createElement("div");
     var grid = document.createElement("div");
     grid.setAttribute("role", "grid");
     grid.classList.add("grid");
     grid.setAttribute("data-wrap-cols", "true");
+    grid.innerHTML = '<div class="row"><div class="gridcell" role="gridcell"><button onclick="C_Chart()" tabindex="-1"><div class="btn-symbol">e</div><div class="btn-name">Landolt C</div></button></div><div class="gridcell" role="gridcell"><button onclick="E_Chart()" tabindex="-1"><div class="btn-symbol">a</div><div class="btn-name">Tumbling E</div></button></div></div><div class="row"><div class="gridcell" role="gridcell"><button onclick="Sellen_Chart()" tabindex="-1"><div class="btn-symbol"><div class="btn-symbol-box"><div class="btn-symbol-in">E</div><div class="btn-symbol-in">F P</div><div class="btn-symbol-in">T O Z</div></div></div><div class="btn-name">Sellen</div></button></div><div class="gridcell" role="gridcell"><button onclick="Red_Green_Chart()" tabindex="-1"><div class="btn-symbol"><div class="btn-symbol-box red-green">e &nbsp; e</div></div><div class="btn-name">Red Green</div></button></div></div><div class="row"><div class="gridcell" role="gridcell"><button onclick="Numerics_Chart()" tabindex="-1"><div class="btn-symbol">7</div><div class="btn-name">Numerics</div></button></div><div class="gridcell" role="gridcell"><button onclick="Pediatrics_Chart()" tabindex="-1"><div class="btn-symbol ped">mo</div><div class="btn-name">Pediatrics</div></button></div></div>';
     app.id = "app";
     app.appendChild(grid);
     document.body.appendChild(app);
-    var i, j, k=0;
-    var list = ['C','E','Sellen','Red Green','Numerics','Pediatrics'];
-    var list_fn = ['C_Chart()','E_Chart()','Sellen_Chart()','Red_Green_Chart()','Numerics_Chart()','Pediatrics_Chart()'];
-    for (i = 0; i < h; i++) {
-        var row = document.createElement("div");
-        row.classList.add("row");
-        grid.appendChild(row);
-    }
     var button = document.createElement('button');
     button.id = 'fullscreen';
     button.setAttribute("tabindex", "-1");
     button.setAttribute('onclick','openFullscreen()');
     button.innerHTML = 'FullScreen';
     grid.appendChild(button);
-    for (i = 0; i < ((h == 3) ? 3 : 2); i++) { //((h == 3) ? 2 : 3) => if portrait 2 columns, if landscape 3 columns
-        for (j = 0; j < ((h == 3) ? 2 : 3); j++) { //((h == 3) ? 2 : 3) => if portrait 3 rows, if landscape 2 rows
-            var gridcell = document.createElement("div");
-            gridcell.classList.add("gridcell");
-            gridcell.setAttribute("role", "gridcell");
-            var div = document.createElement("button");
-            div.setAttribute("onclick",list_fn[k])
-            div.setAttribute("tabindex", "-1");
-            div.innerHTML = list[k];
-            gridcell.appendChild(div);
-            document.getElementsByClassName("row")[i].appendChild(gridcell);
-            k++;
-        }
-    }
+        
     setTimeout(setFocus, 300);
     var chart = document.createElement('div');
     chart.id = 'chart';
     chart.innerHTML = '<button id="back" onclick="back()">⬅</button><div class="row"><div class="left-num">6/60</div><div class="content" style="font-size: 80px;"><div>E</div></div><div class="content1" style="font-size: 80px;"><div>E</div></div><div class="right-num">6/60</div></div><div class="row"><div class="left-num">6/36</div><div class="content" style="font-size: 70px;"><div>F</div><div>P</div></div><div class="content1" style="font-size: 70px;"><div>F</div><div>P</div></div><div class="right-num">6/36</div></div><div class="row"><div class="left-num">6/24</div><div class="content" style="font-size: 60px;"><div>T</div><div>O</div><div>Z</div></div><div class="content1" style="font-size: 60px;"><div>T</div><div>O</div><div>Z</div></div><div class="right-num">6/24</div></div><div class="row"><div class="left-num">6/18</div><div class="content" style="font-size: 50px;"><div>L</div><div>P</div><div>E</div><div>D</div></div><div class="content1" style="font-size: 50px;"><div>L</div><div>P</div><div>E</div><div>D</div></div><div class="right-num">6/18</div></div><div class="row"><div class="left-num">6/12</div><div class="content" style="font-size: 40px;"><div>P</div><div>E</div><div>C</div><div>F</div><div>D</div></div><div class="content1" style="font-size: 40px;"><div>P</div><div>E</div><div>C</div><div>F</div><div>D</div></div><div class="right-num">6/12</div></div><div class="row"><div class="left-num">6/9</div><div class="content" style="font-size: 30px;"><div>E</div><div>D</div><div>F</div><div>C</div><div>Z</div><div>P</div></div><div class="content1" style="font-size: 30px;"><div>E</div><div>D</div><div>F</div><div>C</div><div>Z</div><div>P</div></div><div class="right-num">6/9</div></div><div class="row"><div class="left-num">6/6</div><div class="content" style="font-size: 20px;"><div>F</div><div>E</div><div>L</div><div>O</div><div>P</div><div>Z</div><div>D</div></div><div class="content1" style="font-size: 20px;"><div>F</div><div>E</div><div>L</div><div>O</div><div>P</div><div>Z</div><div>D</div></div><div class="right-num">6/6</div></div>'
     document.body.appendChild(chart);
-    if(window.innerHeight == screen.height) {
+    if(1 >= window.outerHeight - window.innerHeight) {
         button.style.display = 'none';
     }
 }

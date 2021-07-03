@@ -15,18 +15,12 @@
     src: url(Eyechart_Lea.ttf);
 }
 body {
-    background:
-        linear-gradient(135deg, rgb(250, 170, 148), rgba(255,0,0,0) 60%),
-        linear-gradient(45deg, rgb(214, 120, 151), rgba(0,0,255,0) 60%),
-        linear-gradient(225deg, rgb(108, 184, 219), rgba(0,255,0,0) 60%),
-        linear-gradient(315deg, rgb(150, 98, 199) , rgba(0,255,0,0) 60%);
     color: rgb(51, 51, 51);
     min-height: 100vh;
     padding: 0;
     margin: 0;
     overflow: hidden;
 }
-
 .grid {
     width: 100vw;
     min-height: 100vh;
@@ -34,47 +28,72 @@ body {
     flex-direction: column;
     justify-content: space-around;
 }
-
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 .gridcell button {
     /* border: 2px solid DodgerBlue; */
     cursor: pointer; 
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.5);
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     backdrop-filter: blur( 20.0px );
     -webkit-backdrop-filter: blur( 20.0px );
     display: flex;
     align-items: center;
 }
-
 .gridcell button:focus{
     color: white;
-    background: rgba(34, 34, 34, 0.7);
-    box-shadow: rgba(255, 255, 255, 0.15) 1.95px 1.95px 2.6px;
+    background: rgba(34, 34, 34, 0.6);
+    box-shadow: rgba(205, 205, 118, 0.25) 0px 30px 60px -12px inset, rgba(255, 255, 255, 0.3) 0px 18px 36px -18px inset;
+    box-shadow: none;
 }
-
 .gridcell:focus, .gridcell *:focus {
 	/* outline: DodgerBlue;  */
     outline: #ffffff00;
     outline-style: solid;
 }
-
+button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-width: 0px;
+}
+.btn-symbol {
+    font-family: Eyechart_Lea;
+}
+.btn-symbol-box {
+    border-style: solid;
+    border-width: 1px;
+    display: grid;
+    place-items: center;
+}
+.btn-symbol-box-rg {
+    background: linear-gradient(to right,rgb(255, 0,0) 50%, rgb(0,255,0) 50%);
+    border-style: solid;
+    border-width: 1px;
+    display: grid;
+    place-content: center;
+}
+#fullscreen {
+    position: absolute;
+    transform: translate(100vw, -50vh) translate(-115px,25px);
+    border-radius: 5%;
+    border-style: none;
+    cursor: pointer;
+    font-size: large;
+}
 #chart {
     width: 100vw;
     height: 100vh;
     display: none;
     place-items: center;
 }
-
 #chart .row {
     width: 100vw;
 }
-.row {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
 .left-num {
     width: 100%;
     height: 100%;
@@ -117,7 +136,18 @@ body {
     /* border-style: dashed; */
     border-width: 2px;
 }
-
+#back {
+    position: absolute;
+    /* transform: translate(-50vw, -50vh) translate(25px,25px); */
+    margin: 5px;
+    padding-top: 0px;
+    padding-bottom: 5px;
+    border-radius: 20%;
+    display: none;
+    border-style: none;
+    cursor: pointer;
+    font-size: x-large;
+}
 /* Portrait */
 @media screen and (orientation:portrait) {
     /* Portrait styles */
@@ -135,6 +165,11 @@ body {
         width: 12vw;
         height: 14vw;
     }
+    .btn-symbol-box-rg {
+        font-size: 4vw;
+        width: 14vw;
+        height: 10vw;
+    }
     .ped {
         font-size: 8vw;
     }
@@ -142,7 +177,6 @@ body {
         padding: 2vw;
     }
 }
-
 /* Landscape */
 @media screen and (orientation:landscape) {
     /* Landscape styles */
@@ -160,6 +194,11 @@ body {
         width: 12vh;
         height: 14vh;
     }
+    .btn-symbol-box-rg {
+        font-size: 4vh;
+        width: 14vh;
+        height: 10vh;
+    }
     .ped {
         font-size: 8vh;
     }
@@ -167,21 +206,20 @@ body {
         padding: 2vh;
     }
 }
-
 @media (min-width:1281px) {
     #app {
         -webkit-animation-name: move-left;
-      animation-name: move-left;
-      -webkit-animation-duration: .4s;
-      animation-duration: .4s;
-      -webkit-animation-fill-mode: both;
-      animation-fill-mode: both
+        animation-name: move-left;
+        -webkit-animation-duration: .4s;
+        animation-duration: .4s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both
     }
     #chart {
         -webkit-animation-name: move-right;
         animation-name: move-right;
-        -webkit-animation-duration: .4s;
-        animation-duration: .4s;
+        -webkit-animation-duration: .2s;
+        animation-duration: .2s;
         -webkit-animation-fill-mode: both;
         animation-fill-mode: both
     }
@@ -192,69 +230,29 @@ body {
 }
 @keyframes move-left {
     0% {
-      opacity: 0;
-      visibility: hidden;
-      -webkit-transform: translateX(-10%);
-              transform: translateX(-10%);
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transform: translateX(-10%);
+        transform: translateX(-10%);
     }
     100% {
-      opacity: 1;
-      visibility: visible;
-      -webkit-transform: translateX(0%);
-              transform: translateX(0%);
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
     }
-  }@keyframes move-right {
+}
+@keyframes move-right {
     0% {
-      opacity: 0;
-      visibility: hidden;
-      -webkit-transform: translateX(10%);
-              transform: translateX(10%);
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transform: translateX(10%);
+        transform: translateX(10%);
     }
     100% {
-      opacity: 1;
-      visibility: visible;
-      -webkit-transform: translateX(0%);
-              transform: translateX(0%);
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
     }
-  }
-  
-#fullscreen {
-    position: absolute;
-    transform: translate(100vw, -50vh) translate(-115px,25px);
-    border-radius: 5%;
-    border-style: none;
-    cursor: pointer;
-    font-size: large;
-}
-#back {
-    position: absolute;
-    /* transform: translate(-50vw, -50vh) translate(25px,25px); */
-    margin: 5px;
-    border-radius: 20%;
-    display: none;
-    border-style: none;
-    cursor: pointer;
-    font-size: xx-large;
-}
-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-}
-.btn-symbol {
-    font-family: Eyechart_Lea;
-}
-
-.btn-symbol-box {
-    border-style: solid;
-    border-width: 1px;
-    display: grid;
-    place-items: center;
-}
-
-.red-green {
-    background: linear-gradient(to right,rgb(255, 0,0) 50%, rgb(0,255,0) 50%);
-    display: grid;
-    place-content: center;
 }

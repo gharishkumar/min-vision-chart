@@ -1,7 +1,12 @@
-var row_count = 7;
-var row_start = 0, row_end = row_count;
 var content_val = [['E'],['F','P'],['T','O','Z'],['L','P','E','D'],['P','E','C','F','D'],['E','D','F','C','Z','P'],['F','E','L','O','P','Z','D']];
 var row_size = ['60','36','24','18','12','9','6'];
+var row_count;
+if (localStorage.rowCount) {
+    row_count = localStorage.rowCount-0;
+} else {
+    row_count = row_size.length;
+}
+var row_start = 0, row_end = row_count;
 const size = [1,8/13,6/13,7/26,5/26,2/13,3/26,1/13,1/26]; //diff in font size in row
 var flag = true, redgreen = false;
 var randLetter, randNumber;
@@ -137,7 +142,7 @@ document.addEventListener('swiped-left', function(e) {
     chart();
 });
 document.addEventListener('swiped-up', function(e) {
-    row_start = row_end < row_size.length ? row_end : 0;
+    row_start = row_end < row_size.length ? row_end : row_start;
     row_end = row_end + row_count > row_size.length ? row_size.length : row_end + row_count;
     showChart(row_start, row_end,0);
 });
@@ -167,39 +172,55 @@ function showChart (row_start, row_end,ani) {
 document.onkeydown = checkKey;
 function checkKey(e) {
     e = e || window.event;
-    console.log(e.keyCode);
+    // console.log(e.keyCode);
     if (e.keyCode == '8') {
         back();
         setTimeout(setFocus, 100);
     }
     else if (e.keyCode == '104') {
         // up arrow
-        contents[0].style.fontSize = ((contents[0].style.fontSize.slice(0, -2) - 0) + 10 ) + 'px';
-        contents1[0].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) + 10 ) + 'px';
+        if (e.altKey) {
+            row_count = row_count < row_size.length ? row_count + 1 : row_count;
+            localStorage.setItem("rowCount",row_count);
+            row_start = 0;
+            row_end = row_count;
+            showChart(row_start, row_end,0);
+        } else {
+            contents[0].style.fontSize = ((contents[0].style.fontSize.slice(0, -2) - 0) + 10 ) + 'px';
+            contents1[0].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) + 10 ) + 'px';
 
-        for(var i=1; i < contents.length; i++) {
-            contents[i].style.fontSize = ((contents[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
-            contents1[i].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
+            for(var i=1; i < contents.length; i++) {
+                contents[i].style.fontSize = ((contents[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
+                contents1[i].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
+            }
+            console.log(contents[0].style.fontSize);
+            localStorage.setItem("fontSize", contents[0].style.fontSize.slice(0, -2) - 0);
         }
-        console.log(contents[0].style.fontSize);
-        localStorage.setItem("fontSize", contents[0].style.fontSize.slice(0, -2) - 0);
     }
     else if (e.keyCode == '98') {
-        // down arrow  
-        contents[0].style.fontSize = (contents[0].style.fontSize.slice(0, -2) - 10 ) + 'px';
-        contents1[0].style.fontSize = (contents1[0].style.fontSize.slice(0, -2) - 10 ) + 'px';
+        // down arrow
+        if (e.altKey) {
+            row_count = row_count > 1 ? row_count - 1 : 1;
+            localStorage.setItem("rowCount",row_count);
+            row_start = 0;
+            row_end = row_count;
+            showChart(row_start, row_end,0);
+        } else {
+            contents[0].style.fontSize = (contents[0].style.fontSize.slice(0, -2) - 10 ) + 'px';
+            contents1[0].style.fontSize = (contents1[0].style.fontSize.slice(0, -2) - 10 ) + 'px';
 
-        for(var i=1; i < contents.length; i++) {
-            contents[i].style.fontSize = ((contents[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
-            contents1[i].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
+            for(var i=1; i < contents.length; i++) {
+                contents[i].style.fontSize = ((contents[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
+                contents1[i].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
+            }
+            console.log(contents[0].style.fontSize);
+            localStorage.setItem("fontSize", contents[0].style.fontSize.slice(0, -2) - 0);
         }
-        console.log(contents[0].style.fontSize);
-        localStorage.setItem("fontSize", contents[0].style.fontSize.slice(0, -2) - 0);
     }
     else if (e.keyCode == '100') {
         // left arrow
         contents[0].style.fontSize = (contents[0].style.fontSize.slice(0, -2) - 1 ) + 'px';
-        content1s[0].style.fontSize = (contents1[0].style.fontSize.slice(0, -2) - 1 ) + 'px';
+        contents1[0].style.fontSize = (contents1[0].style.fontSize.slice(0, -2) - 1 ) + 'px';
 
         for(var i=1; i < contents.length; i++) {
             contents[i].style.fontSize = ((contents[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
@@ -228,7 +249,7 @@ function checkKey(e) {
     }
     else if (e.keyCode == '34') {
         // row down
-        row_start = row_end < row_size.length ? row_end : 0;
+        row_start = row_end < row_size.length ? row_end : row_start;
         row_end = row_end + row_count > row_size.length ? row_size.length : row_end + row_count;
         showChart(row_start, row_end,-1);
     }
@@ -390,7 +411,8 @@ function render(h) {
         }
         grid.appendChild(row);
     }
-    setTimeout(setFocus, 100);var chart = document.createElement('div');
+    setTimeout(setFocus, 100);
+    var chart = document.createElement('div');
     chart.id = 'chart';
     var back = document.createElement('button');
     back.id = 'back';

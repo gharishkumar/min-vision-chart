@@ -219,7 +219,7 @@ button {
         padding: 2vh;
     }
 }
-@media (min-width:11px) {
+@media (min-width:1281px) {
     #app {
         -webkit-animation-name: move-left;
         animation-name: move-left;

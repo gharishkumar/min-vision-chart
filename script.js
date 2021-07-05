@@ -137,7 +137,7 @@ document.addEventListener('swiped-left', function(e) {
     chart();
 });
 document.addEventListener('swiped-up', function(e) {
-    row_start = row_end < row_size.length ? row_end : row_size.length-1;
+    row_start = row_end < row_size.length ? row_end : 0;
     row_end = row_end + row_count > row_size.length ? row_size.length : row_end + row_count;
     showChart(row_start, row_end,0);
 });
@@ -228,7 +228,7 @@ function checkKey(e) {
     }
     else if (e.keyCode == '34') {
         // row down
-        row_start = row_end < row_size.length ? row_end : row_size.length-1;
+        row_start = row_end < row_size.length ? row_end : 0;
         row_end = row_end + row_count > row_size.length ? row_size.length : row_end + row_count;
         showChart(row_start, row_end,-1);
     }

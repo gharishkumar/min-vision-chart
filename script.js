@@ -1,6 +1,14 @@
-var bg = 'linear-gradient(135deg, rgb(250, 170, 148), rgba(255,0,0,0) 60%),linear-gradient(45deg, rgb(214, 120, 151), rgba(0,0,255,0) 60%),linear-gradient(225deg, rgb(108, 184, 219), rgba(0,255,0,0) 60%),linear-gradient(315deg, rgb(150, 98, 199) , rgba(0,255,0,0) 60%)';
-//var bg = 'linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB)';
+var row_count = 7;
+var row_start = 0, row_end = row_count;
+var content_val = [['E'],['F','P'],['T','O','Z'],['L','P','E','D'],['P','E','C','F','D'],['E','D','F','C','Z','P'],['F','E','L','O','P','Z','D']];
+var row_size = ['60','36','24','18','12','9','6'];
 const size = [1,8/13,6/13,7/26,5/26,2/13,3/26,1/13,1/26]; //diff in font size in row
+var flag = true, redgreen = false;
+var randLetter, randNumber;
+var list = ['<div class="btn-symbol">e</div><div class="btn-name">Landolt C</div></button></div>','<div class="btn-symbol">a</div><div class="btn-name">Tumbling E</div>','<div class="btn-symbol"><div class="btn-symbol-box"><div class="btn-symbol-in">E</div><div class="btn-symbol-in">F P</div><div class="btn-symbol-in">T O Z</div></div></div><div class="btn-name">Sellen</div>','<div class="btn-symbol"><div class="btn-symbol-box-rg">e &nbsp; e</div></div><div class="btn-name">Red Green</div>','<div class="btn-symbol">7</div><div class="btn-name">Numerics</div>','<div class="btn-symbol ped">mo</div><div class="btn-name">Pediatrics</div>'];
+var list_fn = ['C_Chart()','E_Chart()','Sellen_Chart()','Red_Green_Chart()','Numerics_Chart()','Pediatrics_Chart()'];
+var bg = 'linear-gradient(135deg, rgb(250, 170, 148), rgba(255,0,0,0) 60%),linear-gradient(45deg, rgb(214, 120, 151), rgba(0,0,255,0) 60%),linear-gradient(225deg, rgb(108, 184, 219), rgba(0,255,0,0) 60%),linear-gradient(315deg, rgb(150, 98, 199) , rgba(0,255,0,0) 60%)';
+// var bg = 'linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB)';
 if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
     render(2);
 } else {
@@ -8,8 +16,6 @@ if (document.documentElement.clientWidth > document.documentElement.clientHeight
 }
 var contents = document.getElementsByClassName('content');
 var contents1 = document.getElementsByClassName('content1');
-var flag = true, redgreen = false;
-var randLetter, randNumber;
 window.addEventListener("resize", function (event) {
     if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
         render(2);
@@ -130,10 +136,38 @@ document.addEventListener('swiped-right', function(e) {
 document.addEventListener('swiped-left', function(e) {
     chart();
 });
+document.addEventListener('swiped-up', function(e) {
+    row_start = row_end < row_size.length ? row_end : row_size.length-1;
+    row_end = row_end + row_count > row_size.length ? row_size.length : row_end + row_count;
+    showChart(row_start, row_end,0);
+});
+document.addEventListener('swiped-down', function(e) {
+    row_end = row_start > 0 ? row_start :row_count;
+    row_start = row_end - row_count > 0 ? row_end - row_count : 0;
+    showChart(row_start, row_end,0);
+});
+function showChart (row_start, row_end,ani) {
+    var chart = document.getElementById('chart');
+    var row = chart.getElementsByClassName('row');
+    for (var i = 0; i < row.length; i++) {
+        row[i].style.display = 'none';
+    }
+    for (var i = row_start; i < row_end; i++) {
+        if(window.innerWidth > 1281) {
+            if(ani == 1) {
+                row[i].style.animation = 'move-bottom .4s';
+            }
+            else if(ani == -1) {
+                    row[i].style.animation = 'move-top .4s';
+            }
+        }
+        row[i].style.display = 'flex';
+    }
+}
 document.onkeydown = checkKey;
 function checkKey(e) {
     e = e || window.event;
-    // console.log(e.keyCode);
+    console.log(e.keyCode);
     if (e.keyCode == '8') {
         back();
         setTimeout(setFocus, 100);
@@ -148,7 +182,7 @@ function checkKey(e) {
             contents1[i].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
         }
         console.log(contents[0].style.fontSize);
-        localStorage.setItem("fontSize", contents[0].style.fontSize);
+        localStorage.setItem("fontSize", contents[0].style.fontSize.slice(0, -2) - 0);
     }
     else if (e.keyCode == '98') {
         // down arrow  
@@ -160,7 +194,7 @@ function checkKey(e) {
             contents1[i].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
         }
         console.log(contents[0].style.fontSize);
-        localStorage.setItem("fontSize", contents[0].style.fontSize);
+        localStorage.setItem("fontSize", contents[0].style.fontSize.slice(0, -2) - 0);
     }
     else if (e.keyCode == '100') {
         // left arrow
@@ -172,7 +206,7 @@ function checkKey(e) {
             contents1[i].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
         }
         console.log(contents[0].style.fontSize);
-        localStorage.setItem("fontSize", contents[0].style.fontSize);
+        localStorage.setItem("fontSize", contents[0].style.fontSize.slice(0, -2) - 0);
     }
     else if (e.keyCode == '102') {
         // right arrow
@@ -184,7 +218,19 @@ function checkKey(e) {
             contents1[i].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
         }
         console.log(contents[0].style.fontSize);
-        localStorage.setItem("fontSize", contents[0].style.fontSize);
+        localStorage.setItem("fontSize", contents[0].style.fontSize.slice(0, -2) - 0);
+    }
+    else if (e.keyCode == '33') {
+        // row up
+        row_end = row_start > 0 ? row_start :row_count;
+        row_start = row_end - row_count > 0 ? row_end - row_count : 0;
+        showChart(row_start, row_end,1);
+    }
+    else if (e.keyCode == '34') {
+        // row down
+        row_start = row_end < row_size.length ? row_end : row_size.length-1;
+        row_end = row_end + row_count > row_size.length ? row_size.length : row_end + row_count;
+        showChart(row_start, row_end,-1);
     }
     else if (e.keyCode == '39') {
         // right arrow
@@ -297,14 +343,15 @@ function openFullscreen() {
     }
 }
 function setFocus () {
-    var button = document.getElementsByTagName('button');
-        for (var i = 0; i < button.length; i++) {
+    var buttons = document.getElementsByTagName('button');
+        for (var i = 0; i < buttons.length; i++) {
             // console.log(button[i].tabIndex);
-            if (button[i].tabIndex == 0) {
-                button[i].focus();
+            if (buttons[i].tabIndex == 0) {
+                buttons[i].focus();
             }
         }
 }
+
 function render(h) {
     document.body.innerHTML ="";
     document.body.style.background = bg;
@@ -316,21 +363,19 @@ function render(h) {
     app.appendChild(grid);
     document.body.appendChild(app);
     var i, j, k=0;
-    var list = ['<div class="btn-symbol">e</div><div class="btn-name">Landolt C</div></button></div>','<div class="btn-symbol">a</div><div class="btn-name">Tumbling E</div>','<div class="btn-symbol"><div class="btn-symbol-box"><div class="btn-symbol-in">E</div><div class="btn-symbol-in">F P</div><div class="btn-symbol-in">T O Z</div></div></div><div class="btn-name">Sellen</div>','<div class="btn-symbol"><div class="btn-symbol-box-rg">e &nbsp; e</div></div><div class="btn-name">Red Green</div>','<div class="btn-symbol">7</div><div class="btn-name">Numerics</div>','<div class="btn-symbol ped">mo</div><div class="btn-name">Pediatrics</div>'];
-    var list_fn = ['C_Chart()','E_Chart()','Sellen_Chart()','Red_Green_Chart()','Numerics_Chart()','Pediatrics_Chart()'];
-    for (i = 0; i < h; i++) {
+    var fullscreen = document.createElement('button');
+    fullscreen.id = 'fullscreen';
+    fullscreen.setAttribute("tabindex", "-1");
+    fullscreen.setAttribute('onclick','openFullscreen()');
+    fullscreen.innerHTML = 'FullScreen';
+    grid.appendChild(fullscreen);
+    if(window.innerHeight == screen.height) {
+        fullscreen.style.display = 'none';
+    }
+    for (i = 0; i < h; i++) {                       //((h == 3) ? 2 : 3) => if portrait 2 columns, if landscape 3 columns
         var row = document.createElement("div");
         row.classList.add("row");
-        grid.appendChild(row);
-    }
-    var button = document.createElement('button');
-    button.id = 'fullscreen';
-    button.setAttribute("tabindex", "-1");
-    button.setAttribute('onclick','openFullscreen()');
-    button.innerHTML = 'FullScreen';
-    grid.appendChild(button);
-    for (i = 0; i < ((h == 3) ? 3 : 2); i++) { //((h == 3) ? 2 : 3) => if portrait 2 columns, if landscape 3 columns
-        for (j = 0; j < ((h == 3) ? 2 : 3); j++) { //((h == 3) ? 2 : 3) => if portrait 3 rows, if landscape 2 rows
+        for (j = 0; j < ((h == 3) ? 2 : 3); j++) {  //((h == 3) ? 2 : 3) => if portrait 3 rows, if landscape 2 rows
             var gridcell = document.createElement("div");
             gridcell.classList.add("gridcell");
             gridcell.setAttribute("role", "gridcell");
@@ -339,36 +384,57 @@ function render(h) {
             div.setAttribute("tabindex", "-1");
             div.innerHTML = list[k];
             gridcell.appendChild(div);
-            document.getElementsByClassName("row")[i].appendChild(gridcell);
+            row.appendChild(gridcell);
             k++;
         }
+        grid.appendChild(row);
     }
-    setTimeout(setFocus, 100);
-    var chart = document.createElement('div');
+    setTimeout(setFocus, 100);var chart = document.createElement('div');
     chart.id = 'chart';
-    chart.innerHTML = `<button id="back" onclick="back()">⬅</button>
-    <div class="row"><div class="left-num">6/60</div><div class="content" style="font-size: 80px;"><div>E</div></div><div class="content1" style="font-size: 80px;"><div>E</div></div><div class="right-num">6/60</div></div>
-    <div class="row"><div class="left-num">6/36</div><div class="content" style="font-size: 70px;"><div>F</div><div>P</div></div><div class="content1" style="font-size: 70px;"><div>F</div><div>P</div></div><div class="right-num">6/36</div></div>
-    <div class="row"><div class="left-num">6/24</div><div class="content" style="font-size: 60px;"><div>T</div><div>O</div><div>Z</div></div><div class="content1" style="font-size: 60px;"><div>T</div><div>O</div><div>Z</div></div><div class="right-num">6/24</div></div>
-    <div class="row"><div class="left-num">6/18</div><div class="content" style="font-size: 50px;"><div>L</div><div>P</div><div>E</div><div>D</div></div><div class="content1" style="font-size: 50px;"><div>L</div><div>P</div><div>E</div><div>D</div></div><div class="right-num">6/18</div></div>
-    <div class="row"><div class="left-num">6/12</div><div class="content" style="font-size: 40px;"><div>P</div><div>E</div><div>C</div><div>F</div><div>D</div></div><div class="content1" style="font-size: 40px;"><div>P</div><div>E</div><div>C</div><div>F</div><div>D</div></div><div class="right-num">6/12</div></div>
-    <div class="row"><div class="left-num">6/9</div><div class="content" style="font-size: 30px;"><div>E</div><div>D</div><div>F</div><div>C</div><div>Z</div><div>P</div></div><div class="content1" style="font-size: 30px;"><div>E</div><div>D</div><div>F</div><div>C</div><div>Z</div><div>P</div></div><div class="right-num">6/9</div></div>
-    <div class="row"><div class="left-num">6/6</div><div class="content" style="font-size: 20px;"><div>F</div><div>E</div><div>L</div><div>O</div><div>P</div><div>Z</div><div>D</div></div><div class="content1" style="font-size: 20px;"><div>F</div><div>E</div><div>L</div><div>O</div><div>P</div><div>Z</div><div>D</div></div><div class="right-num">6/6</div></div>`;
+    var back = document.createElement('button');
+    back.id = 'back';
+    back.setAttribute('onclick','back()');
+    back.innerHTML = '⬅';    
+    chart.appendChild(back);
+    for (var i = 0; i < row_size.length; i++) {
+        var row = document.createElement("div");
+        row.classList.add("row");
+        var left_num = document.createElement("div");
+        left_num.classList.add("left-num");
+        left_num.innerHTML = '6/' + row_size[i];
+        row.appendChild(left_num);
+        var content = document.createElement("div");
+        content.classList.add("content");
+        if (localStorage.fontSize) {
+            content.style.fontSize = localStorage.fontSize*size[i] + 'px';
+        } else {
+            content.style.fontSize = 20 *size[i] + 'px';
+        }
+        for (var j = 0; j < content_val[i].length; j++) {
+            var letter = document.createElement("div");
+            letter.innerHTML = content_val[i][j];
+            content.appendChild(letter);
+        }
+        row.appendChild(content);
+        var content1 = document.createElement("div");
+        content1.classList.add("content1");
+        if (localStorage.fontSize) {
+            content1.style.fontSize = localStorage.fontSize *size[i] + 'px';
+        } else {
+            content1.style.fontSize = 20 *size[i] + 'px';
+        }
+        for (var j = 0; j < content_val[i].length; j++) {
+            var letter = document.createElement("div");
+            letter.innerHTML = content_val[i][j];
+            content1.appendChild(letter);
+        }
+        row.appendChild(content1);
+        var right_num = document.createElement("div");
+        right_num.classList.add("right-num");
+        right_num.innerHTML = '6/' + row_size[i];
+        row.appendChild(right_num);
+        chart.appendChild(row);
+    }
     document.body.appendChild(chart);
-    if(window.innerHeight == screen.height) {
-        button.style.display = 'none';
-    }
-    var contents = document.getElementsByClassName('content');
-    var contents1 = document.getElementsByClassName('content1');
-    if (localStorage.fontSize) {
-        contents[0].style.fontSize = localStorage.fontSize;
-        contents1[0].style.fontSize = localStorage.fontSize;
-    } else {
-        contents[0].style.fontSize = '20px';
-        contents1[0].style.fontSize = '20px';
-    }
-    for(var i=1; i < contents.length; i++) {
-        contents[i].style.fontSize = ((contents[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
-        contents1[i].style.fontSize = ((contents1[0].style.fontSize.slice(0, -2) - 0) *size[i] ) + 'px';
-    }
+    showChart(row_start, row_end,0);
 }

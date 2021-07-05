@@ -38,17 +38,12 @@ body {
     cursor: pointer; 
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.5);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-    backdrop-filter: blur( 20.0px );
-    -webkit-backdrop-filter: blur( 20.0px );
     display: flex;
     align-items: center;
 }
 .gridcell button:focus{
     color: white;
-    background: rgba(34, 34, 34, 0.6);
-    box-shadow: rgba(205, 205, 118, 0.25) 0px 30px 60px -12px inset, rgba(255, 255, 255, 0.3) 0px 18px 36px -18px inset;
-    box-shadow: none;
+    background: rgba(126, 23, 146, 0.7);
 }
 .gridcell:focus, .gridcell *:focus {
 	/* outline: DodgerBlue;  */
@@ -66,14 +61,12 @@ button {
 }
 .btn-symbol-box {
     border-style: solid;
-    border-width: 1px;
     display: grid;
     place-items: center;
 }
 .btn-symbol-box-rg {
     background: linear-gradient(to right,rgb(255, 0,0) 50%, rgb(0,255,0) 50%);
     border-style: solid;
-    border-width: 1px;
     display: grid;
     place-content: center;
 }
@@ -157,16 +150,26 @@ button {
         height: 25vw;
         font-size: 14vw;
     }
+    .gridcell button {
+        box-shadow: rgba(50, 50, 93, 0.25) 0vw 5vw 10vw -2vw, rgba(0, 0, 0, 0.3) 0vw 3vw 6vw -3vw, rgba(10, 37, 64, 0.35) 0vw -.2vw .6vw 0vw inset;
+        backdrop-filter: blur( 2vw );
+        -webkit-backdrop-filter: blur( 2vw );
+    }
+    .gridcell button:focus{
+        box-shadow: rgba(205, 205, 118, 0.25) 0vw 3vw 6vw -1.2vw inset, rgba(255, 255, 255, 0.3) 0vw 1.8vw 3.6vw -1.8vw inset;
+    } 
     .btn-name {
         font-size: 3vw;
     }
     .btn-symbol-box {
         font-size: 3.2vw;
+        border-width: .1vw;
         width: 12vw;
         height: 14vw;
     }
     .btn-symbol-box-rg {
         font-size: 4vw;
+        border-width: .1vw;
         width: 14vw;
         height: 10vw;
     }
@@ -186,16 +189,26 @@ button {
         height: 25vh;
         font-size: 14vh;
     }
+    .gridcell button {
+        box-shadow: rgba(50, 50, 93, 0.25) 0vh 5vh 10vh -2vh, rgba(0, 0, 0, 0.3) 0vh 3vh 6vh -3vh, rgba(10, 37, 64, 0.35) 0vh -.2vh .6vh 0vh inset;
+        backdrop-filter: blur( 2vh );
+        -webkit-backdrop-filter: blur( 2vh );
+    }
+    .gridcell button:focus{
+        box-shadow: rgba(205, 205, 118, 0.25) 0vh 3vh 6vh -1.2vh inset, rgba(255, 255, 255, 0.3) 0vh 1.8vh 3.6vh -1.8vh inset;
+    } 
     .btn-name {
         font-size: 3vh;
     }
     .btn-symbol-box {
         font-size: 3.2vh;
+        border-width: .1vh;
         width: 12vh;
         height: 14vh;
     }
     .btn-symbol-box-rg {
         font-size: 4vh;
+        border-width: .1vh;
         width: 14vh;
         height: 10vh;
     }
@@ -206,7 +219,7 @@ button {
         padding: 2vh;
     }
 }
-@media (min-width:1281px) {
+@media (min-width:11px) {
     #app {
         -webkit-animation-name: move-left;
         animation-name: move-left;
@@ -233,13 +246,17 @@ button {
         opacity: 0;
         visibility: hidden;
         -webkit-transform: translateX(-10%);
-        transform: translateX(-10%);
+		transform: translateX(-10%);
+        transition: transform;
+        will-change: transform;
     }
     100% {
         opacity: 1;
         visibility: visible;
         -webkit-transform: translateX(0%);
-        transform: translateX(0%);
+		transform: translateX(0%);
+        transition: transform;
+        will-change: transform;
     }
 }
 @keyframes move-right {
@@ -247,12 +264,44 @@ button {
         opacity: 0;
         visibility: hidden;
         -webkit-transform: translateX(10%);
-        transform: translateX(10%);
+		transform: translateX(10%);
+        transition: transform;
+        will-change: transform;
     }
     100% {
         opacity: 1;
         visibility: visible;
         -webkit-transform: translateX(0%);
-        transform: translateX(0%);
+		transform: translateX(0%);
+        transition: transform;
+        will-change: transform;
+    }
+}
+@keyframes move-top {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transform: translateY(50%);
+        transform: translateY(50%);
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translateY(0%);
+        transform: translateY(0%);
+    }
+}
+@keyframes move-bottom {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translateY(0%);
+        transform: translateY(0%);
     }
 }

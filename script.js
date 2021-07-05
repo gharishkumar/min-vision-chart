@@ -359,6 +359,7 @@ function render(h) {
     var grid = document.createElement("div");
     grid.setAttribute("role", "grid");
     grid.classList.add("grid");
+    grid.setAttribute("data-wrap-cols", "true");
     app.id = "app";
     app.appendChild(grid);
     document.body.appendChild(app);

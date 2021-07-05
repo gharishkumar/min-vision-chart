@@ -1,5 +1,6 @@
 var bg = 'linear-gradient(135deg, rgb(250, 170, 148), rgba(255,0,0,0) 60%),linear-gradient(45deg, rgb(214, 120, 151), rgba(0,0,255,0) 60%),linear-gradient(225deg, rgb(108, 184, 219), rgba(0,255,0,0) 60%),linear-gradient(315deg, rgb(150, 98, 199) , rgba(0,255,0,0) 60%)';
 //var bg = 'linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB)';
+const size = [1,8/13,6/13,7/26,5/26,2/13,3/26,1/13,1/26]; //diff in font size in row
 if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
     render(2);
 } else {
@@ -359,7 +360,6 @@ function render(h) {
     }
     var contents = document.getElementsByClassName('content');
     var contents1 = document.getElementsByClassName('content1');
-    const size = [1,8/13,6/13,7/26,5/26,2/13,3/26,1/13,1/26]; //diff in font size in row
     if (localStorage.fontSize) {
         contents[0].style.fontSize = localStorage.fontSize;
         contents1[0].style.fontSize = localStorage.fontSize;

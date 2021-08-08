@@ -265,40 +265,50 @@ function Pediatrics_Chart() {
     }
     chart();
 }
+var image = document.getElementById('logo');
 function Maddox() {
     document.body.style.background = 'white';
+    image.src = 'm.jpg';
     picture();
 }
 function Ishihara() {
     document.body.style.background = 'white';
+    image.src = 'i.jpg';
     picture();
 }
 function SC1() {
     document.body.style.background = 'white';
+    image.src = '1.jpg';
     picture();
 }
 function SC2() {
     document.body.style.background = 'white';
+    image.src = '2m.jpg';
     picture();
 }
 function SC3() {
     document.body.style.background = 'white';
+    image.src = '3.jpg';
     picture();
 }
 function SC4() {
     document.body.style.background = 'white';
+    image.src = '4.jpg';
     picture();
 }
 function Education() {
     document.body.style.background = 'white';
+    image.src = 'e.jpg';
     picture();
 }
 function Cartoon() {
     document.body.style.background = 'white';
+    image.src = 'c.jpg';
     picture();
 }
 function Animals() {
     document.body.style.background = 'white';
+    image.src = 'a.jpg';
     picture();
 }
 document.addEventListener('swiped-right', function(e) {

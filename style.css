@@ -126,8 +126,9 @@ button {
     justify-content: space-around;
 }
 #fullscreen {
-    display: none;
+    /* display: none; */
     position: absolute;
+    z-index: 1;
     transform: translate(100vw, -50vh) translate(-115px,25px);
     border-radius: 5%;
     border-style: none;
@@ -153,7 +154,7 @@ button {
     place-items: center;
 }
 #logo {
-    width: 80vw;
+    width: 100vw;
 }
 #chart .row {
     width: 100vw;

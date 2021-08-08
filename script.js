@@ -14,8 +14,8 @@ var list = ['<div class="btn-symbol-a">c</div><div class="btn-name">Landolt C</d
             '<div class="btn-symbol-a trans"><div class="btn-symbol-box-scc"><svg viewBox="0 0 500 550"><polygon points="0,0 500,0 500,150 450,150 450,50 50,50 50,150 0,150" /><circle cx="250" cy="250" r="30"/><polygon points="0,500 500,500 500,350 450,350 450,450 50,450 50,350 0,350" /></svg></div></div><div class="btn-name">SC4</div>',
             '<div class="btn-symbol ped trans">mo</div><div class="btn-name">Pediatrics</div>',
             '<div class="btn-symbol-a emo">📚</div><div class="btn-name">Education</div>',
-            '<div class="btn-symbol-a emo">🐱‍🏍</div><div class="btn-name">Cartoon</div>',
-            '<div class="btn-symbol-a emo">🐶</div><div class="btn-name">Animals</div>',
+            '<div class="btn-symbol-a emo">🐒</div><div class="btn-name">Cartoon</div>',
+            '<div class="btn-symbol-a emo">🐘</div><div class="btn-name">Animals</div>',
             '<div class="btn-symbol-a trans"><div class="btn-symbol-box lan"><div class="btn-symbol-in-2">Regional</div><div class="btn-symbol-in-3">Tamil</div></div></div><div class="btn-name">Lang-1</div>',
             '<div class="btn-symbol-a trans"><div class="btn-symbol-box lan"><div class="btn-symbol-in-2">Regional</div><div class="btn-symbol-in-3">Malayalam</div></div></div><div class="btn-name">Lang-2</div>'];
 var list_fn = [ 'C_Chart()',

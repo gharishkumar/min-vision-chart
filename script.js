@@ -283,7 +283,7 @@ function SC1() {
 }
 function SC2() {
     document.body.style.background = 'white';
-    image.src = '2m.jpg';
+    image.src = '2.jpg';
     picture();
 }
 function SC3() {
@@ -650,7 +650,7 @@ function render(h) {
     back2.innerHTML = '⬅';    
     picture.appendChild(back2);
     let image = document.createElement('img');
-    image.src = "splash_h.jpg";
+//     image.src = "splash_h.jpg";
     image.id = "logo";
     picture.appendChild(image);
     document.body.appendChild(picture);

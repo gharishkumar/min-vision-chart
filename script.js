@@ -18,21 +18,21 @@ var list = ['<div class="btn-symbol-a">c</div><div class="btn-name">Landolt C</d
             '<div class="btn-symbol-a emo">🐘</div><div class="btn-name">Animals</div>',
             '<div class="btn-symbol-a trans"><div class="btn-symbol-box lan"><div class="btn-symbol-in-2">Regional</div><div class="btn-symbol-in-3">Tamil</div></div></div><div class="btn-name">Lang-1</div>',
             '<div class="btn-symbol-a trans"><div class="btn-symbol-box lan"><div class="btn-symbol-in-2">Regional</div><div class="btn-symbol-in-3">Malayalam</div></div></div><div class="btn-name">Lang-2</div>'];
-var list_fn = [ 'C_Chart()',
-                'E_Chart()',
-                'Sellen_Chart()',
-                'LogMAR()',
-                'Red_Green_Chart()',
-                'Numerics_Chart()',
-                'Sellen_Chart()',
-                'Maddox()',
-                'Ishihara()',
+var list_fn = [ 'C_Chart()',            //C
+                'E_Chart()',            //E
+                'Sellen_Chart()',       //S
+                'LogMAR()',             //L
+                'Red_Green_Chart()',    //R
+                'Numerics_Chart()',     //N
+                'Sellen_Chart()',       //A
+                'Maddox()',             //M
+                'Ishihara()',           //I
                 'Contrast()',
                 'SC1()',
                 'SC2()',
                 'SC3()',
                 'SC4()', 
-                'Pediatrics_Chart()',
+                'Pediatrics_Chart()',   //P
                 'Education()',
                 'Cartoon()',
                 'Animals()',
@@ -42,6 +42,7 @@ var list_fn = [ 'C_Chart()',
 var content_vals = [['E'],['F','P'],['T','O','Z'],['L','P','E','D'],['P','E','C','F','D'],['E','D','F','C','Z','P'],['F','E','L','O','P','Z','D'],['F','E','L','O','P','Z','D','C'],['E','c','F','E','L','O','P','Z','D']];
 var content_vals1 = [['H','O','T','Z'],['V','O','D','H'],['K','O','V','R','C'],['R','S','Z','K','D'],['N','H','C','O','V'],['D','K','H','V','N'],['R','S','C','O','Z'],['F','E','L','O','P'],['E','O','F','E','L']];
 var row_size =  [60,36,24,18,12,9,6,5,4];
+var row_ratio =  [10,6,4,3,2,3/2,1,5/6,2/3];
 var log_size =  ['1.00','0.80','0.60','0.50','0.30','0.25','0.00','0.00','0.00'];
 var row_count;
 if (localStorage.rowCount) {
@@ -52,8 +53,8 @@ if (localStorage.rowCount) {
 var row_start = 0, row_end = row_count;
 var flag = true, redgreen = false;
 var randLetter, randNumber;
-var bg = 'rgb(247, 247, 128)';
-// var bg = 'linear-gradient(135deg, rgb(250, 170, 148), rgba(255,0,0,0) 60%),linear-gradient(45deg, rgb(214, 120, 151), rgba(0,0,255,0) 60%),linear-gradient(225deg, rgb(108, 184, 219), rgba(0,255,0,0) 60%),linear-gradient(315deg, rgb(150, 98, 199) , rgba(0,255,0,0) 60%)';
+// var bg = 'rgb(247, 247, 128)';
+var bg = 'linear-gradient(135deg, rgb(250, 170, 148), rgba(255,0,0,0) 60%),linear-gradient(45deg, rgb(214, 120, 151), rgba(0,0,255,0) 60%),linear-gradient(225deg, rgb(108, 184, 219), rgba(0,255,0,0) 60%),linear-gradient(315deg, rgb(150, 98, 199) , rgba(0,255,0,0) 60%)';
 // var bg = 'linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB)';
 // var bg = 'url(bg/4.jpg)';
 var row_num = 4,col_num = 5;
@@ -66,6 +67,37 @@ var contents = document.getElementsByClassName('content');
 var contents1 = document.getElementsByClassName('content1');
 var contents2 = document.getElementsByClassName('content2');
 var left_num1 = document.getElementsByClassName('left-num1');
+var settings = document.getElementById('settings');
+var feet_adj = document.getElementById('feet');
+var botton_shape = document.getElementById('button-shape');
+if (localStorage.feet) {
+    feet_adj.value = localStorage.feet-0;
+}
+if (localStorage.botton_shape) {
+    botton_shape.value = localStorage.botton_shape-0;
+}
+feet_adj.addEventListener("change", function () {
+    var myobj = document.getElementById("chart");
+    myobj.remove();
+    var myobj1 = document.getElementById("picture");
+    myobj1.remove();
+    var myobj2 = document.getElementById("chart-log");
+    myobj2.remove();
+    var myobj3 = document.getElementById("settings");
+    myobj3.remove();
+    chart_render(feet_adj.value);
+    localStorage.setItem("feet", feet_adj.value);
+});
+botton_shape.addEventListener("change", function () {
+    let gridcell = document.getElementsByClassName('gridcell');
+    for (let i = 0; i < gridcell.length; i++ ) {
+        let button = gridcell[i].getElementsByTagName('button');
+        for (let j = 0; j < button.length; j++ ) {
+            button[j].style.borderRadius = botton_shape.value + '%';
+        }
+    }
+    localStorage.setItem("botton_shape", botton_shape.value);
+});
 window.addEventListener("resize", function () {
     if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
         render(row_num);
@@ -348,10 +380,16 @@ function showChart (row_start, row_end,ani) {
 document.onkeydown = checkKey;
 function checkKey(e) {
     e = e || window.event;
-    // console.log(e.keyCode);
+    console.log(e.keyCode);
     if (e.keyCode == '8') {
         back();
         setTimeout(setFocus, 100);
+    }
+    else if (e.keyCode == '27') {
+        settings.style.display = 'none';
+    }
+    else if (e.key == 'i') {
+        settings.style.display = 'grid';
     }
     else if (e.keyCode == '104') {
         // up arrow
@@ -528,6 +566,9 @@ function checkKey(e) {
             redgreen = false;
         }
     }
+    else if (e.key == 'f') {
+        openFullscreen();
+    }
 
 }
 function openFullscreen() {
@@ -580,6 +621,9 @@ function render(h) {
             let div = document.createElement("button");
             div.setAttribute("onclick",list_fn[k])
             div.setAttribute("tabindex", "-1");
+            if (localStorage.botton_shape) {
+                div.style.borderRadius = localStorage.botton_shape + '%';
+            }
             div.innerHTML = list[k];
             gridcell.appendChild(div);
             row.appendChild(gridcell);
@@ -588,6 +632,14 @@ function render(h) {
         grid.appendChild(row);
     }
     setTimeout(setFocus, 100);
+    if (localStorage.feet) {
+        chart_render(localStorage.feet-0);
+    } else {
+        chart_render(6);
+    }
+}
+
+function chart_render(feet_num) {
     let chart = document.createElement('div');
     chart.id = 'chart';
     let back = document.createElement('button');
@@ -606,14 +658,14 @@ function render(h) {
         row.classList.add("row");
         let left_num = document.createElement("div");
         left_num.classList.add("left-num");
-        left_num.innerHTML = '6/' + row_size[i];
+        left_num.innerHTML = feet_num + '/' + Math.round(feet_num*row_ratio[i]*100)/100;
         row.appendChild(left_num);
         let content = document.createElement("div");
         content.classList.add("content");
         if (localStorage.fontSize) {
-            content.style.fontSize = localStorage.fontSize*row_size[i]/row_size[0] + 'px';
+            content.style.fontSize = localStorage.fontSize*feet_num*row_ratio[i]/row_size[0] + 'px';
         } else {
-            content.style.fontSize = 20 *row_size[i]/row_size[0] + 'px';
+            content.style.fontSize = 20 *feet_num*row_ratio[i]/row_size[0] + 'px';
         }
         for (let content_val of content_vals[i]) {
             let letter = document.createElement("div");
@@ -624,9 +676,9 @@ function render(h) {
         let content1 = document.createElement("div");
         content1.classList.add("content1");
         if (localStorage.fontSize) {
-            content1.style.fontSize = localStorage.fontSize *row_size[i]/row_size[0] + 'px';
+            content1.style.fontSize = localStorage.fontSize *feet_num*row_ratio[i]/row_size[0] + 'px';
         } else {
-            content1.style.fontSize = 20 *row_size[i]/row_size[0] + 'px';
+            content1.style.fontSize = 20 *feet_num*row_ratio[i]/row_size[0] + 'px';
         }
         for (let content_val of content_vals[i]) {
             let letter = document.createElement("div");
@@ -636,7 +688,7 @@ function render(h) {
         row.appendChild(content1);
         let right_num = document.createElement("div");
         right_num.classList.add("right-num");
-        right_num.innerHTML = '6/' + row_size[i];
+        right_num.innerHTML = feet_num + '/' + Math.round(feet_num*row_ratio[i]*100)/100;
         row.appendChild(right_num);
         chart.appendChild(row);
     }
@@ -650,7 +702,7 @@ function render(h) {
     back2.innerHTML = '⬅';    
     picture.appendChild(back2);
     let image = document.createElement('img');
-//     image.src = "splash_h.jpg";
+    // image.src = "splash_h.jpg";
     image.id = "logo";
     picture.appendChild(image);
     document.body.appendChild(picture);
@@ -679,9 +731,9 @@ function render(h) {
         let content = document.createElement("div");
         content.classList.add("content2");
         if (localStorage.fontSize) {
-            content.style.fontSize = localStorage.fontSize*row_size[i]/row_size[0] + 'px';
+            content.style.fontSize = localStorage.fontSize*feet_num*row_ratio[i]/row_size[0] + 'px';
         } else {
-            content.style.fontSize = 20 *row_size[i]/row_size[0] + 'px';
+            content.style.fontSize = 20 *feet_num*row_ratio[i]/row_size[0] + 'px';
         }
         for (let content_val of content_vals1[i]) {
             let letter = document.createElement("div");
@@ -691,9 +743,40 @@ function render(h) {
         row.appendChild(content);
         let right_num = document.createElement("div");
         right_num.classList.add("right-num");
-        right_num.innerHTML = '6/' + row_size[i];
+        right_num.innerHTML = feet_num + '/' + Math.round(feet_num*row_ratio[i]*100)/100;
         row.appendChild(right_num);
         chart1.appendChild(row);
     }
     document.body.appendChild(chart1);
+    let settings = document.createElement('div');
+    settings.id = 'settings';
+    let back3 = document.createElement('button');
+    back3.classList.add("back");
+    back3.id = "back3";
+    back3.setAttribute('onclick','back()');
+    back3.innerHTML = '⬅';    
+    settings.appendChild(back3);
+    let div = document.createElement('div');
+    // let feet_label = document.createElement('div');
+    // feet_label.id = 'feet-label';
+    // feet_label.innerHTML = 'Feet';
+    // div.appendChild(feet_label);
+    // let feet = document.createElement('input');
+    // feet.id = 'feet';
+    // div.appendChild(feet);
+    div.classList.add("feet");
+    div.innerHTML = `<label for="feet">Choose a feet:</label>
+    <select name="feet" id="feet">
+      <option value="6">6 feet</option>
+      <option value="8">8 feet</option>
+      <option value="10">10 feet</option>
+      <option value="12">12 feet</option>
+      <option value="15">15 feet</option>
+      <option value="20">20 feet</option>
+    </select><br>
+    <label for="button-shape">Choose a button shape:</label><br>
+    <label for="button-shape">[SQUARE - CIRCLE]</label>
+    <input type="range" min="0" max="50" value="50" class="slider" id="button-shape">`;
+    settings.appendChild(div);
+    document.body.appendChild(settings);
 }

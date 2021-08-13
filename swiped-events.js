@@ -70,6 +70,14 @@
                 eventType = 'swiped-down';
             }
         }
+        else if (Math.abs(yDiff) > swipeThreshold) {
+            if (yDiff > 0) {
+                eventType = 'long-swiped-up';
+            }
+            else {
+                eventType = 'long-swiped-down';
+            }
+        }
 
         if (eventType !== '') {
 

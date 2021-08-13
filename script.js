@@ -58,6 +58,9 @@ var bg = 'linear-gradient(135deg, rgb(250, 170, 148), rgba(255,0,0,0) 60%),linea
 // var bg = 'linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB)';
 // var bg = 'url(bg/4.jpg)';
 var row_num = 4,col_num = 5;
+if (localStorage.background) {
+    bg = localStorage.background;
+}
 if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
     render(row_num);
 } else {
@@ -70,6 +73,7 @@ var left_num1 = document.getElementsByClassName('left-num1');
 var settings = document.getElementById('settings');
 var feet_adj = document.getElementById('feet');
 var botton_shape = document.getElementById('button-shape');
+var background = document.getElementById('background');
 if (localStorage.feet) {
     feet_adj.value = localStorage.feet-0;
 }
@@ -97,6 +101,10 @@ botton_shape.addEventListener("change", function () {
         }
     }
     localStorage.setItem("botton_shape", botton_shape.value);
+});
+background.addEventListener("change", function () {
+    document.body.style.background = background.value;
+    localStorage.setItem("background", background.value);
 });
 window.addEventListener("resize", function () {
     if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
@@ -353,6 +361,12 @@ document.addEventListener('swiped-up', function(e) {
     row_start = row_end < row_size.length ? row_end : row_start;
     row_end = row_end + row_count > row_size.length ? row_size.length : row_end + row_count;
     showChart(row_start, row_end,0);
+});
+document.addEventListener('long-swiped-up', function(e) {
+    settings.style.display = 'none';
+});
+document.addEventListener('long-swiped-down', function(e) {
+    settings.style.display = 'grid';
 });
 document.addEventListener('swiped-down', function(e) {
     row_end = row_start > 0 ? row_start :row_count;
@@ -776,7 +790,9 @@ function chart_render(feet_num) {
     </select><br>
     <label for="button-shape">Choose a button shape:</label><br>
     <label for="button-shape">[SQUARE - CIRCLE]</label>
-    <input type="range" min="0" max="50" value="50" class="slider" id="button-shape">`;
+    <input type="range" min="0" max="50" value="50" class="slider" id="button-shape"><br>
+    <label for="background">Background</label>
+    <input type="text" id="background">`;
     settings.appendChild(div);
     document.body.appendChild(settings);
 }

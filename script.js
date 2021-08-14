@@ -73,7 +73,7 @@ var left_num1 = document.getElementsByClassName('left-num1');
 var settings = document.getElementById('settings');
 var feet_adj = document.getElementById('feet');
 var botton_shape = document.getElementById('button-shape');
-var background = document.getElementById('background');
+
 if (localStorage.feet) {
     feet_adj.value = localStorage.feet-0;
 }
@@ -101,10 +101,6 @@ botton_shape.addEventListener("change", function () {
         }
     }
     localStorage.setItem("botton_shape", botton_shape.value);
-});
-background.addEventListener("change", function () {
-    document.body.style.background = background.value;
-    localStorage.setItem("background", background.value);
 });
 window.addEventListener("resize", function () {
     if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
@@ -305,48 +301,56 @@ function Pediatrics_Chart() {
     }
     chart();
 }
-var image = document.getElementById('logo');
 function Maddox() {
+    let image = document.getElementById('logo');
     document.body.style.background = 'white';
     image.src = 'm.jpg';
     picture();
 }
 function Ishihara() {
+    let image = document.getElementById('logo');
     document.body.style.background = 'white';
     image.src = 'i.jpg';
     picture();
 }
 function SC1() {
+    let image = document.getElementById('logo');
     document.body.style.background = 'white';
     image.src = '1.jpg';
     picture();
 }
 function SC2() {
+    let image = document.getElementById('logo');
     document.body.style.background = 'white';
     image.src = '2.jpg';
     picture();
 }
 function SC3() {
+    let image = document.getElementById('logo');
     document.body.style.background = 'white';
     image.src = '3.jpg';
     picture();
 }
 function SC4() {
+    let image = document.getElementById('logo');
     document.body.style.background = 'white';
     image.src = '4.jpg';
     picture();
 }
 function Education() {
+    let image = document.getElementById('logo');
     document.body.style.background = 'white';
     image.src = 'e.jpg';
     picture();
 }
 function Cartoon() {
+    let image = document.getElementById('logo');
     document.body.style.background = 'white';
     image.src = 'c.jpg';
     picture();
 }
 function Animals() {
+    let image = document.getElementById('logo');
     document.body.style.background = 'white';
     image.src = 'a.jpg';
     picture();
@@ -363,9 +367,11 @@ document.addEventListener('swiped-up', function(e) {
     showChart(row_start, row_end,0);
 });
 document.addEventListener('long-swiped-up', function(e) {
+    let settings = document.getElementById('settings');
     settings.style.display = 'none';
 });
 document.addEventListener('long-swiped-down', function(e) {
+    let settings = document.getElementById('settings');
     settings.style.display = 'grid';
 });
 document.addEventListener('swiped-down', function(e) {
@@ -385,7 +391,7 @@ function showChart (row_start, row_end,ani) {
                 row[i].style.animation = 'move-bottom .4s';
             }
             else if(ani == -1) {
-                    row[i].style.animation = 'move-top .4s';
+                row[i].style.animation = 'move-top .4s';
             }
         }
         row[i].style.display = 'flex';
@@ -400,9 +406,11 @@ function checkKey(e) {
         setTimeout(setFocus, 100);
     }
     else if (e.keyCode == '27') {
+        let settings = document.getElementById('settings');
         settings.style.display = 'none';
     }
     else if (e.key == 'i') {
+        let settings = document.getElementById('settings');
         settings.style.display = 'grid';
     }
     else if (e.keyCode == '104') {
@@ -795,4 +803,9 @@ function chart_render(feet_num) {
     <input type="text" id="background">`;
     settings.appendChild(div);
     document.body.appendChild(settings);
+    let background = document.getElementById('background');
+    background.addEventListener("change", function () {
+    document.body.style.background = background.value;
+    localStorage.setItem("background", background.value);
+});
 }

@@ -325,6 +325,9 @@ button {
     button {
         padding: 2vw;
     }
+    #moon {
+        height: 11vw;
+    }
 }
 /* Landscape */
 @media screen and (orientation:landscape) {
@@ -390,6 +393,9 @@ button {
     }
     button {
         padding: 2vh;
+    }
+    #moon {
+        height: 11vh;
     }
 }
 @media (min-width:1281px) {

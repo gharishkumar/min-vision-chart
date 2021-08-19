@@ -147,6 +147,8 @@ function back() {
     document.getElementById('chart').style.display = 'none';
     document.getElementById('app').style.display = 'block';
     document.getElementsByClassName('back')[0].style.display = 'none';
+    document.getElementsByClassName('back')[1].style.display = 'none';
+    document.getElementsByClassName('back')[2].style.display = 'none';
     document.getElementById('picture').style.display = 'none';
 }
 function chart() {

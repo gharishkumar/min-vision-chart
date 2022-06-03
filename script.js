@@ -6,7 +6,7 @@ var list = ['<div class="btn-symbol-a">c</div><div class="btn-name">Landolt C</d
             '<div class="btn-symbol-a">7</div><div class="btn-name">Numerics</div>',
             '<div class="btn-symbol-a abc trans">ABC</div><div class="btn-name">Alphabets</div>',
             '<div class="btn-symbol-a trans"><div class="btn-symbol-box med"><div class="btn-symbol-in-2 red">&#9679;</div><div class="btn-symbol-in-2 green"><div>&#9679</div><div>&#9679</div></div><div class="btn-symbol-in-2 white">&#9679;</div></div></div><div class="btn-name">Maddox</div>',
-            '<div class="btn-symbol-a"><div class="btn-symbol-box ish"><img src="900px-Ishihara_9.png" id="moon" /></div></div><div class="btn-name">Ishihara</div>',
+            '<div class="btn-symbol-a"><div class="btn-symbol-box ish"><img src="ishihara_color_min.svg" id="moon" /></div></div><div class="btn-name">Ishihara</div>',
             '<div class="btn-symbol-a trans"><div class="btn-symbol-box"><div class="btn-symbol-in-2">N L F M</div><div class="btn-symbol-in-2 c1">X P R B</div><div class="btn-symbol-in-2 c2">U F N X</div></div></div><div class="btn-name">Contrast</div>',
             '<div class="btn-symbol"><div class="btn-symbol-box-scc"><div class="btn-symbol-in-1">|</div><div class="btn-symbol-in-2 scc"><div>&#9644;</div><div>&#9679;</div><div>&#9644;</div></div><div class="btn-symbol-in-1">|</div></div></div><div class="btn-name">SC1</div>',
             '<div class="btn-symbol"><div class="btn-symbol-box-scc"><div class="btn-symbol-in-1">|</div><div class="btn-symbol-in-2 scc"><div>&#9644;</div><div>&#9644;</div></div><div class="btn-symbol-in-1">|</div></div></div><div class="btn-name">SC2</div>',
@@ -312,7 +312,7 @@ function Maddox() {
 function Ishihara() {
     let image = document.getElementById('logo');
     document.body.style.background = 'white';
-    image.src = 'i.jpg';
+    image.src = 'ishihara_color_min.svg';
     picture();
 }
 function SC1() {
